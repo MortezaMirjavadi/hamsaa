@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createUseStyles } from "react-jss";
 import createClass from "classnames";
 import storageHelper from "@Utils/storageHelper";
+import { useHistory } from "react-router-dom";
 
 const useStyles = createUseStyles({
   root: {
@@ -15,7 +16,6 @@ const useStyles = createUseStyles({
     position: "fixed",
     top: 0,
     backdropFilter: "blur(10px)",
-    borderBottom: "1px solid #eaeaea",
     transition: "background .4s,color .4s,box-shadow .4s",
     zIndex: 1,
   },
@@ -89,9 +89,18 @@ const useStyles = createUseStyles({
 const AppBar = () => {
   const localStyle = useStyles();
   const [showMenu, setShowMenu] = useState(false);
+  const history = useHistory();
 
   function handleToggleMenu() {
     setShowMenu(!showMenu);
+  }
+  function dashboard() {
+    history.push("/dashboard/favs");
+    handleToggleMenu();
+  }
+  function exit() {
+    storageHelper.clearLocalStorage();
+    history.push("/login");
   }
 
   return (
@@ -105,6 +114,7 @@ const AppBar = () => {
       {showMenu && (
         <div className={localStyle.profile}>
           <div
+            onClick={dashboard}
             className={createClass(
               localStyle.profileItem,
               localStyle.profileItemFirstHover
@@ -113,6 +123,7 @@ const AppBar = () => {
             Dashboard
           </div>
           <div
+            onClick={exit}
             className={createClass(
               localStyle.profileItem,
               localStyle.profileItemLastHover

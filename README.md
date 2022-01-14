@@ -64,7 +64,7 @@ As this is a highly technical role this second phase will be a technical assessm
   of concerns
 - Reusable components
 
-**Assessment - Minimal Dashboard to add shops to favorite list**
+**Assessment - Minimal Favorites to add shops to favorite list**
 
 The task is to create a minimal app which consists of register, login, shops list and
 dashboard pages. You need to create two simple page for user authentication (Sign up, Log in). In the app's home page, you will show the list of shops (from the API), and allow the user to see and interact with "Add To Favorites" button if the user is logged in. Once user adds some of the shops to his favorites, he then should be able to remove those selected shops from the favorites as well.

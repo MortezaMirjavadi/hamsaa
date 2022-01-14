@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
   },
 });
 
-export default function CircularIndeterminate() {
+export default function Loading() {
   const classes = useStyles();
   return (
     <div className={classes.root}>

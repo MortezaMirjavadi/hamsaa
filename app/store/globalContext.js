@@ -10,6 +10,7 @@ import {
   ACTION_SHOW_SNACKBAR,
   ACTION_TOGGLE_FAVORITE,
 } from "@Store/actionTypes";
+import { MESSAGE_TYPE } from "@Config/constants";
 
 const initialState = {
   shops: [],
@@ -18,6 +19,7 @@ const initialState = {
   loading: false,
   isShowSnackbar: false,
   snackbarMessage: [],
+  messageType: MESSAGE_TYPE.SUCCESS,
   currentPage: 1,
   lastPage: null,
   total: null,
@@ -51,14 +53,17 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: ACTION_LOADING.STOP });
   }
   function loginSuccess(data) {
-    showSnackbar({ message: data.data.message });
+    showSnackbar({
+      message: data.data.message,
+      messageType: MESSAGE_TYPE.SUCCESS,
+    });
     dispatch({
       type: ACTION_LOGIN.ACTION_LOGIN_SUCCESS,
       data,
     });
   }
-  function showSnackbar({ message }) {
-    dispatch({ type: ACTION_SHOW_SNACKBAR, message });
+  function showSnackbar({ message, messageType }) {
+    dispatch({ type: ACTION_SHOW_SNACKBAR, message, messageType });
   }
   function closeSnackbar() {
     dispatch({ type: ACTION_CLOSE_SNACKBAR });

@@ -34,8 +34,8 @@ const handleStates = {
     return { ...state, loading: false, token: token, authenticated: true };
   },
   [ACTION_SHOW_SNACKBAR]: (state, action) => {
-    const { message } = action;
-    return { ...state, isShowSnackbar: true, snackbarMessage: message };
+    const { message, messageType } = action;
+    return { ...state, isShowSnackbar: true, snackbarMessage: message, messageType };
   },
   [ACTION_CLOSE_SNACKBAR]: (state) => {
     return { ...state, isShowSnackbar: false };
@@ -49,6 +49,7 @@ const handleStates = {
       lastPage: last_page,
       currentPage: current_page,
       loading: false,
+      // favorites: data,
     };
   },
   [ACTION_TOGGLE_FAVORITE]: (state, { item }) => {

@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { createUseStyles } from "react-jss";
 import { Button, TextField } from "@Components/UI";
 import { useInput } from "@App/hooks/useInput";
 import { useHistory } from "react-router-dom";
 import useFetchData from "@App/hooks/useFetchData";
-import { HTTP_METHOD_TYPE } from "@Config/constants";
+import { HTTP_METHOD_TYPE, MESSAGE_TYPE } from "@Config/constants";
 import { GlobalContext } from "@Store/globalContext";
 import Spinner from "@Components/UI/Spinner";
+import useEventListener from "@App/hooks/useEventListener";
 
 const useStyles = createUseStyles({
   root: {
@@ -79,24 +80,40 @@ const Login = () => {
       startLoading();
     },
     successCallback: (data) => {
-      loginSuccess({data, email: values.email});
+      loginSuccess({ data, email: values.email });
+      showSnackbar({
+        message: "Login is successfully",
+        messageType: MESSAGE_TYPE.SUCCESS,
+      });
       history.push("/shop?page=1");
     },
     failedCallback: (data) => {
       stopLoading();
       let message = "";
-      Object.keys(data).forEach((item) => {
-        message += `${data[item]}\n`;
+      const _data = data.response.data;
+      Object.keys(_data).forEach((item) => {
+        message += `${_data[item]}\n`;
       });
-      showSnackbar({ message });
+      showSnackbar({ message, messageType: MESSAGE_TYPE.ERROR });
     },
   });
 
+  const keyboardListener = (e) => {
+    if (loading) {
+      return;
+    }
+    if (e.which === 13 || e.key === "Enter") {
+      request();
+    }
+  };
+
+  useEventListener({
+    element: typeof document !== "undefined" ? document : undefined,
+    eventName: "keyup",
+    listener: keyboardListener,
+  });
+
   function login() {
-    console.log(values);
-    // if (values.password === "") {
-    //   console.log("password is required!");
-    // }
     request();
   }
 

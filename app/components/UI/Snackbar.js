@@ -2,6 +2,7 @@ import React from "react";
 import { createUseStyles } from "react-jss";
 import { GlobalContext } from "@Store/globalContext";
 import { useInterval } from "@App/hooks/useInterval";
+import {MESSAGE_TYPE} from "@Config/constants";
 
 const useStyles = createUseStyles({
   root: {
@@ -37,7 +38,7 @@ const useStyles = createUseStyles({
     display: "flex",
     justifyContent: "center",
   },
-  container: {
+  container: (messageType) => ({
     position: "fixed",
     top: "50px",
     width: "40%",
@@ -47,8 +48,8 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "red",
-  },
+    backgroundColor: messageType === MESSAGE_TYPE.SUCCESS ? "green" : messageType === MESSAGE_TYPE.ERROR ? "red" : "pink",
+  }),
   timerContainer: {
     width: "100%",
     height: 4,
@@ -64,11 +65,13 @@ const useStyles = createUseStyles({
   },
 });
 
+
+
 const Snackbar = () => {
-  const localStyle = useStyles();
-  const { closeSnackbar, isShowSnackbar, snackbarMessage } = React.useContext(
+  const { closeSnackbar, isShowSnackbar, snackbarMessage, messageType } = React.useContext(
     GlobalContext
   );
+  const localStyle = useStyles(messageType);
   const [innerWidth, setInnerWidth] = React.useState(0);
 
   useInterval(() => {

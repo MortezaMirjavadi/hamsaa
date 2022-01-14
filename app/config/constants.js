@@ -5,3 +5,8 @@ export const HTTP_METHOD_TYPE = {
     PUT: "put",
 }
 
+export const MESSAGE_TYPE = {
+    SUCCESS: "success",
+    WARNING: "warning",
+    ERROR: "error"
+};
