@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": "./",
+    "paths": {
+      "@Icons/*": ["app/components/Icons/*"],
+      "@Components/*": ["app/components/*"],
+      "@Utils/*": ["app/utils/*"],
+      "@Libs/*": ["app/libs/*"],
+      "@Helpers/*": ["app/helpers/*"],
+      "@Routes/*": ["app/routes/*"],
+      "@Constants": ["app/config/constants.js"],
+      "@Config/*": ["app/config/*"],
+      "@Screens/*": ["app/screens/*"],
+      "@Store/*": ["app/store/*"],
+      "@Assets/*": ["assets/*"],
+      "@App/*": ["app/*"],
+      "@Styles/*": ["app/components/DesignSystem/styles/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "public", "babel_cache", ".storybook"]
+}
